@@ -1,0 +1,38 @@
+ul {
+  padding: 0px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+.name {
+  background-color: rgb(255, 255, 255);
+  padding: 1px;
+  margin: 0;
+  text-align: center;
+}
+
+.button {
+  background-color: #F5F4FA;
+  color: #212121;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  border-radius: 50px;
+  padding-top: 6px;
+  padding-right: 22px;
+  padding-bottom: 6px;
+  padding-left: 22px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  outline-style: none;
+}
+
+.button:hover {
+  background-color: tomato;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
