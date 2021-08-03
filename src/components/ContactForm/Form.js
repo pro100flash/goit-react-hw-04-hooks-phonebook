@@ -5,8 +5,8 @@ function ContactForm({ onSubmit }) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     switch (name) {
       case "name":
         setName(value);
@@ -17,13 +17,13 @@ function ContactForm({ onSubmit }) {
       default:
         return;
     }
-  }
-  function handleSubmit(e) {
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(name, number);
     setName("");
     setNumber("");
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className={S.form}>

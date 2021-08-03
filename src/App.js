@@ -40,8 +40,8 @@ function App() {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
-  const changeFilter = (event) => {
-    setFilter(event.currentTarget.value);
+  const changeFilter = (e) => {
+    setFilter(e.currentTarget.value);
   };
   const onDeleteContact = (contactId) => {
     setContacts(() => contacts.filter((contact) => contact.id !== contactId));
