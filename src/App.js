@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import shortid from "shortid";
 import Section from "./components/Section";
 import ContactForm from "./components/ContactForm";
@@ -7,50 +7,46 @@ import Filter from "./components/Filter";
 import listOfContact from "./data/contacts.json";
 
 function App() {
-  const [contacts, setContacts] = useState(listOfContact);
+  const [contacts, setContacts] = useState(() => [...listOfContact]);
   const [filter, setFilter] = useState("");
-  const firstRender = useRef(true);
 
   useEffect(() => {
-    if (firstRender.current) {
-      const parsedContacts = JSON.parse(localStorage.getItem("contacts"));
-
-      if (parsedContacts) {
-        setContacts(parsedContacts);
-      }
-
-      firstRender.current = false;
-      return;
+    if (localStorage.getItem("contacts") !== null) {
+      const data = JSON.parse(window.localStorage.getItem("contacts"));
+      setContacts(data);
     }
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
-  function addContact(name, number) {
+  const addContact = (name, number) => {
+    if (contacts.find((contact) => contact.name === name)) {
+      alert(`${name} is already added.`);
+      return;
+    }
     const contact = {
       id: shortid.generate(),
       name,
       number,
     };
-    contacts.find(
-      (contact) => contact.name.toLowerCase() === name.toLowerCase()
-    )
-      ? alert(`${name} is already added.`)
-      : setContacts((prevContacts) => [contact, ...prevContacts]);
-  }
+    setContacts((prevContacts) => [contact, ...prevContacts]);
+  };
 
-  function getContacts() {
+  const getContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
-  }
-  function changeFilter(event) {
+  };
+  const changeFilter = (event) => {
     setFilter(event.currentTarget.value);
-  }
-  function onDeleteContact(contactId) {
+  };
+  const onDeleteContact = (contactId) => {
     setContacts(() => contacts.filter((contact) => contact.id !== contactId));
     setFilter("");
-  }
+  };
 
   return (
     <>
